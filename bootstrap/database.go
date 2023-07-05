@@ -2,55 +2,46 @@ package bootstrap
 
 import (
 	"context"
-	"encoding/json"
+	"fmt"
+	"github.com/no-mole/neptune/utils"
+	"gopkg.in/yaml.v3"
+	"os"
 
-	"diana/model"
-
-	"github.com/no-mole/neptune/app"
 	"github.com/no-mole/neptune/config"
-	"github.com/no-mole/neptune/config/center"
 	"github.com/no-mole/neptune/database"
 	"github.com/no-mole/neptune/env"
 )
 
-var dbNames = []string{
-	model.MysqlEngineBar,
-}
+var (
+	dbNames = map[string]*database.Config{}
+)
 
 func InitDatabase(ctx context.Context) error {
-	configCenterClient := config.GetClient()
-	for _, dbName := range dbNames {
-		conf, err := configCenterClient.Get(ctx, dbName)
+	baseConfigDir := fmt.Sprintf("%s/config/%s/mysql.yaml", config.GlobalConfig.BasePath, config.GlobalConfig.Env.Mode)
+	exist := utils.FileExist(baseConfigDir)
+	if exist {
+		body, err := os.ReadFile(baseConfigDir)
 		if err != nil {
 			return err
 		}
-		err = initDatabaseDrive(dbName, conf.GetValue())
+
+		err = yaml.Unmarshal(body, &dbNames)
 		if err != nil {
 			return err
 		}
-		// 监听修改
-		configCenterClient.Watch(ctx, conf, func(item *center.Item) {
-			err := initDatabaseDrive(item.Key, item.GetValue())
-			if err != nil {
-				app.Error(err)
-				return
-			}
-		})
+	}
+
+	for dbName, dbValue := range dbNames {
+
+		err := initDatabaseDrive(dbName, dbValue)
+		if err != nil {
+			return err
+		}
+
 	}
 	return nil
 }
 
-func initDatabaseDrive(dbName, confStr string) error {
-	conf := &database.Config{
-		Driver:       "mysql",
-		Host:         "localhost",
-		Port:         3306,
-		WriteTimeout: 1000,
-		ReadTimeout:  2000,
-	}
-	err := json.Unmarshal([]byte(confStr), conf)
-	if err != nil {
-		return err
-	}
+func initDatabaseDrive(dbName string, conf *database.Config) error {
 	return database.Init(dbName, conf, env.GetEnvDebug())
 }

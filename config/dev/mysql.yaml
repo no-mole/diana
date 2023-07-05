@@ -1,0 +1,12 @@
+eam:
+  driver: mysql
+  host: 127.0.0.1
+  database: eam
+  port: 8003
+  username: yzy
+  password: yzy123456
+  max_idle_connes: 10
+  max_open_connes: 100
+  max_lifetime: 1000
+  write_timeout: 1000ms
+  read_timeout: 1000ms

@@ -18,14 +18,8 @@ func main() {
 	neptune.AddHook(
 		config.Init,          //初始化配置
 		bootstrap.InitLogger, //初始化日志
-		bootstrap.InitDatabase,
-		bootstrap.InitRedis,
-		bootstrap.InitGrpcServer,             //初始化grpc server
-		bootstrap.DiscoveryService,           //启动服务发现
+		//bootstrap.InitDatabase,
 		bootstrap.InitRouter(app.HttpEngine), //初始化http router
-	)
-	neptune.AddDelayHook(
-		bootstrap.RegistrationService, //最后启动服务注册
 	)
 
 	if err := neptune.Start(); err != nil {

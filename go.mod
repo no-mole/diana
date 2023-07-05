@@ -4,10 +4,10 @@ go 1.20
 
 require (
 	github.com/gin-gonic/gin v1.9.1
-	github.com/grpc-ecosystem/go-grpc-middleware v1.4.0
 	github.com/no-mole/neptune v0.1.4
 	go.uber.org/automaxprocs v1.5.2
 	google.golang.org/grpc v1.56.1
+	gopkg.in/yaml.v3 v3.0.1
 )
 
 require (
@@ -68,7 +68,6 @@ require (
 	google.golang.org/protobuf v1.30.0 // indirect
 	gopkg.in/natefinch/lumberjack.v2 v2.0.0 // indirect
 	gopkg.in/yaml.v2 v2.4.0 // indirect
-	gopkg.in/yaml.v3 v3.0.1 // indirect
 	gorm.io/driver/clickhouse v0.3.2 // indirect
 	gorm.io/driver/mysql v1.3.3 // indirect
 	gorm.io/driver/postgres v1.3.5 // indirect
