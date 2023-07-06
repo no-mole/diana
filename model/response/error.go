@@ -1,4 +1,4 @@
-package request
+package response
 
 type OAuthError struct {
 	Error            string `json:"error"`
