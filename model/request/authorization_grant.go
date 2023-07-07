@@ -1,6 +1,23 @@
 package request
 
-type AuthorizationCodeGrantRequest struct {
+type GrantType int32
+
+const (
+	CodeGrant     GrantType = 0
+	ImplicitGrant GrantType = 1
+)
+
+func (gt GrantType) String() string {
+	switch gt {
+	case CodeGrant:
+		return "code"
+	case ImplicitGrant:
+		return "token"
+	}
+	return ""
+}
+
+type AuthorizationRequest struct {
 	ResponseType string `json:"response_type" form:"response_type" binding:"required"` // Value MUST be set to "code".
 	ClientId     string `json:"client_id" form:"client_id" binding:"required"`         // The client identifier as described in RFC6749 Section 2.2
 	RedirectUri  string `json:"redirect_uri" form:"redirect_uri"`                      // As described in RFC6749 Section 3.1.2

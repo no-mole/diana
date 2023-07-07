@@ -2,9 +2,9 @@ package response
 
 type OAuthError struct {
 	Error            string `url:"error"`
-	ErrorDescription string `url="error_description"`
-	ErrorUri         string `url="error_uri"`
-	State            string `url="state"`
+	ErrorDescription string `url:"error_description"`
+	ErrorUri         string `url:"error_uri"`
+	State            string `url:"state"`
 }
 
 type ErrorType int32

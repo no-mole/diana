@@ -12,8 +12,8 @@ import (
 	"strings"
 )
 
-func requestValidate(ctx *gin.Context) (*request.AuthorizationCodeGrantRequest, *response.OAuthError) {
-	req := &request.AuthorizationCodeGrantRequest{}
+func requestValidate(ctx *gin.Context) (*request.AuthorizationRequest, *response.OAuthError) {
+	req := &request.AuthorizationRequest{}
 	if err := ctx.ShouldBindQuery(&req); err != nil {
 		errs, ok := err.(validator.ValidationErrors)
 		var errorFields []string
@@ -34,6 +34,7 @@ func requestValidate(ctx *gin.Context) (*request.AuthorizationCodeGrantRequest, 
 	return req, nil
 }
 
+// Auth is Authorization Endpoint.
 func Auth(ctx *gin.Context) {
 	req, err := requestValidate(ctx)
 	if err != nil {
