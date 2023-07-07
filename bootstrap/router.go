@@ -2,8 +2,7 @@ package bootstrap
 
 import (
 	"context"
-
-	"diana/controller/bar"
+	"diana/controller"
 
 	"github.com/gin-gonic/gin"
 	"github.com/no-mole/neptune/app"
@@ -15,9 +14,8 @@ func InitRouter(router *gin.Engine) app.HookFunc {
 		//using middleware
 		router.Use(middleware.Recover, middleware.StartTracing, middleware.AccessLog)
 
-		groupBar := router.Group("/bar")
-		groupBar.GET("/say_hello", bar.SayHello)
-
+		r := router.Group("/")
+		r.GET("auth", controller.Auth)
 		return nil
 	}
 }

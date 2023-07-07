@@ -1,10 +1,10 @@
 package response
 
 type OAuthError struct {
-	Error            string `json:"error"`
-	ErrorDescription string `json:"error_description"`
-	ErrorUri         string `json:"error_uri"`
-	State            string `json:"state"`
+	Error            string `url:"error"`
+	ErrorDescription string `url="error_description"`
+	ErrorUri         string `url="error_uri"`
+	State            string `url="state"`
 }
 
 type ErrorType int32
@@ -61,7 +61,7 @@ func (e ErrorType) Message() string {
 	}
 }
 
-func NewOAuthError(errorType ErrorType, uri string, state string) OAuthError {
+func NewOAuthError(errorType ErrorType, msg string, uri string, state string) OAuthError {
 	return OAuthError{
 		Error:            errorType.String(),
 		ErrorUri:         uri,
