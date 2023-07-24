@@ -2,8 +2,7 @@ package bootstrap
 
 import (
 	"context"
-	"diana/controller"
-
+	"diana/api"
 	"github.com/gin-gonic/gin"
 	"github.com/no-mole/neptune/app"
 	"github.com/no-mole/neptune/middlewares"
@@ -14,8 +13,8 @@ func InitRouter(router *gin.Engine) app.HookFunc {
 		//using middleware
 		router.Use(middleware.Recover, middleware.StartTracing, middleware.AccessLog)
 
-		r := router.Group("/")
-		r.GET("auth", controller.Auth)
+		rg := router.Group("/app")
+		rg.POST("", api.RegisterApp)
 		return nil
 	}
 }
