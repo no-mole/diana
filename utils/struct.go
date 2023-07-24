@@ -1,14 +1,17 @@
-package model
+package utils
 
 type Client struct {
-	Id           int64  `json:"id"`
-	ClientId     string `json:"client_id"`
-	ClientSecret string `json:"client_secret"`
-	RedirectUri  string `json:"redirect_uri"`
-	ClientName   string `json:"client_name"`
-	Description  string `json:"description"`
-	CreatedTime  string `json:"created_time"`
-	UpdatedTime  string `json:"updated_time"`
+	ClientId     string   `json:"client_id"`
+	ClientSecret string   `json:"client_secret"`
+	RedirectUri  string   `json:"redirect_uri"`
+	ClientName   string   `json:"client_name"`
+	Description  string   `json:"description"`
+	CreatedTime  string   `json:"created_time"`
+	UpdatedTime  string   `json:"updated_time"`
+	GrantTypes   []string `json:"grant_types"`
+	ClientUri    string   `json:"client_uri"`
+	Active       bool     `json:"active"`
+	Scopes       []string `json:"scopes"`
 }
 
 type Account struct {
